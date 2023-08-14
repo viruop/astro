@@ -72,4 +72,7 @@ const PORT = 4000 || 3000;
 app.listen(PORT, () => console.log(`listening on ${PORT}`));
 // Export the Express API
 
-module.exports = getHoroscope;
+module.exports = {
+  app,
+  getHoroscope,
+};
