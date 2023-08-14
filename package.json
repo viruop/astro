@@ -1,17 +1,18 @@
 {
-  "name": "astro",
+  "name": "@viruop/astro",
   "version": "1.0.0",
-  "description": "",
+  "description": "This API allows you to retrieve astrology information based on the provided query parameters.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "viruop",
   "license": "ISC",
   "dependencies": {
     "cheerio": "^1.0.0-rc.12",
     "cors": "^2.8.5",
     "express": "^4.18.2",
     "request": "^2.88.2"
-  }
+  },
+  "devDependencies": {}
 }

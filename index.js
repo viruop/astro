@@ -12,6 +12,33 @@ app.use((req, res, next) => {
 
 app.use(cors());
 
+const getHoroscope = (timeframe, signNumber) => {
+  return new Promise((resolve, reject) => {
+    request(
+      {
+        url: `https://www.horoscope.com/us/horoscopes/general/horoscope-general-daily-${timeframe}.aspx?sign=${signNumber}`,
+      },
+      (error, response, body) => {
+        if (error || response.statusCode !== 200) {
+          return reject({ type: "error", message: error.message });
+        }
+
+        const $ = cheerio.load(body);
+        const paragraphs = $("p")
+          .toArray()
+          .map((element) => $(element).text());
+        const comp = $("#src-horo-matchlove").find("p").text();
+
+        let horoscope = {
+          description: paragraphs[0],
+          compatibility: comp,
+        };
+        resolve(horoscope);
+      }
+    );
+  });
+};
+
 app.get("/", async (req, res) => {
   const timeframe = req.query.timeframe || "today";
   const signNumber = req.query.signNumber || "1";
@@ -44,4 +71,5 @@ app.get("/", async (req, res) => {
 const PORT = 4000 || 3000;
 app.listen(PORT, () => console.log(`listening on ${PORT}`));
 // Export the Express API
-module.exports = app;
+
+module.exports = getHoroscope;
